@@ -1,0 +1,47 @@
+.input-width {
+    width: 30%
+}
+
+.text-waring {
+    font-size: 17px;
+    text-align: center;
+}
+
+.logo-style {
+    width: 50%;
+}
+
+.logo-style-padding-top {
+    padding-top: 0;
+}
+.nav-link{
+    font-size: 16px;
+}
+
+.header-color {
+    background-color: #028CEE;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: white;
+}
+.navbar-default .navbar-nav > li > a > a{
+    color: white;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    color: #028cee;
+    background-color: white;
+}
+.navbar-default .navbar-nav > li > a > a:hover {
+    color: #028cee;
+    background-color: white;
+    text-decoration: none;
+}
+.success-image {
+    height: 120px;
+    margin-top: 10%;
+}
+.footer-style {
+    background-color: #222222;
+}
+
