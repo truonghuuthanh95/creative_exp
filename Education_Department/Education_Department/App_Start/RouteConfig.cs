@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-
 namespace Education_Department
 {
     public class RouteConfig
@@ -13,11 +12,14 @@ namespace Education_Department
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapMvcAttributeRoutes();
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            //var server = new HttpSelfHostServer(config);
+            //server.OpenAsync().Wait();
         }
     }
 }
