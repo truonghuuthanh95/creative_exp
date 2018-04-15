@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Education_Department.Models.DAO;
 using Education_Department.Models.DTO;
 
 namespace Education_Department.Controllers
@@ -72,18 +73,31 @@ namespace Education_Department.Controllers
         }
 
         // POST: api/Registration_Creative_Exp
-        [ResponseType(typeof(Registration_Creative_Exp))]
-        public async Task<IHttpActionResult> PostRegistration_Creative_Exp(Registration_Creative_Exp registration_Creative_Exp)
+        [HttpPost]
+        //[ResponseType(typeof(Registration_Creative_Exp))]
+        public async Task<IHttpActionResult> PostRegistration_Creative_Exp(RegistrationDAO registrationDAO)
         {
+            RegistrationDAO registrationDAO02 = registrationDAO;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            Registration_Creative_Exp registration_Creative_Exp = new Registration_Creative_Exp();
+
+            registration_Creative_Exp.school_id = registrationDAO.school_id;
+            registration_Creative_Exp.student_quantity = registration_Creative_Exp.student_quantity;
+            registration_Creative_Exp.grade_id = registration_Creative_Exp.grade_id;
+            registration_Creative_Exp.creator = registrationDAO.creator;
+            registration_Creative_Exp.date_registed = registrationDAO.date_registed;
+            registration_Creative_Exp.day_session_id = registrationDAO.day_session_id;
+            registration_Creative_Exp.class_id = registrationDAO.class_id;
+
             db.Registration_Creative_Exp.Add(registration_Creative_Exp);
             await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = registration_Creative_Exp.id }, registration_Creative_Exp);
+            //return Ok(registrationDAO);
         }
 
         // DELETE: api/Registration_Creative_Exp/5

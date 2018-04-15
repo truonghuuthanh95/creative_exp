@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Education_Department.Models.DTO;
-
+using Education_Department.Services.Utils;
 namespace Education_Department.Controllers
 {
     public class ProgramsController : ApiController
@@ -41,7 +41,14 @@ namespace Education_Department.Controllers
 
             return Ok(program);
         }
-
+        [HttpGet]
+        [Route("api/studentQuantityValid/{programId}/{sesstionAdayId}/{time}")]
+        public int StudentquantityValid(int programId, int sesstionAdayId, DateTime time)
+        {
+            Utils utils = new Utils();
+            int validStudentNum = utils.checkValidQuantityStudent(programId, sesstionAdayId, time);
+            return validStudentNum;
+        }
         private bool ProgramExists(int id)
         {
             return db.Programs.Count(e => e.id == id) > 0;

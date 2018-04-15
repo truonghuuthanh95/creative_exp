@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import Header from "../component/Header";
-import TitleActivity from "../component/TitleActivity";
 import { Grid, Col, Row, Thumbnail, Button } from "react-bootstrap";
-import Experience_Creative from "../component/Experience_Creative";
-import Footer from '../component/Footer';
+
 // import { withRouter } from 'react-router-dom';
 class Home extends Component {
   constructor(props) {

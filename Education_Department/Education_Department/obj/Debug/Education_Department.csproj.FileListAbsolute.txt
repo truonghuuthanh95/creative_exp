@@ -141,3 +141,5 @@ C:\Users\thanhthse61493\Desktop\ASP.NET MVC\Git\Education_Department\Education_D
 C:\Users\thanhthse61493\Desktop\ASP.NET MVC\Git\Education_Department\Education_Department\bin\System.Diagnostics.DiagnosticSource.dll
 C:\Users\thanhthse61493\Desktop\ASP.NET MVC\Git\Education_Department\Education_Department\bin\Microsoft.AspNet.TelemetryCorrelation.xml
 C:\Users\thanhthse61493\Desktop\ASP.NET MVC\Git\Education_Department\Education_Department\bin\System.Diagnostics.DiagnosticSource.xml
+C:\Users\thanhthse61493\Desktop\ASP.NET MVC\Git\Education_Department\Education_Department\bin\AutoMapper.dll
+C:\Users\thanhthse61493\Desktop\ASP.NET MVC\Git\Education_Department\Education_Department\bin\AutoMapper.xml

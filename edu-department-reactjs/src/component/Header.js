@@ -31,9 +31,7 @@ class Header extends Component {
   }
 
   render() {
-    const style = {
-      menucolor: { height: 100 }
-    };
+    
     return (
       <div>
         <Navbar collapseOnSelect className="header-color">

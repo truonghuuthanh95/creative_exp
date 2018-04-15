@@ -6,5 +6,6 @@ export const GET_SHOOL_BY_DISTRICT_AND_SCHOOL_DEGREE = 'getSchoolByDistrictIdAnd
 export const GET_GRADE_BY_SCHOOL_DEGREE = 'class/getClassBySchoolDegree'
 export const GET_ALL_POSITION = 'positions';
 export const POST_ACTIVITY = 'Registration_Creative_Exp';
+export const GET_VALID_STUDENT_QUANTITY = 'studentQuantityValid';
 // export const GET_SHOOL_BY_DISTRICT = 'getSchoolByDistrictIdAndSchoolDegree';
 

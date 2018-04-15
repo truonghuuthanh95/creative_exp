@@ -4,7 +4,7 @@ class Footer extends Component {
   render() {
     return (
       <div>
-        <Navbar fixedBottom className="footer-style">
+        <Navbar className="footer-style">
           <Navbar.Header>
             <Navbar.Brand>
               <Image

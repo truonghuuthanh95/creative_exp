@@ -2,12 +2,12 @@ import {
   BASE_URL,
   GET_ALL_PROGRAMS,
   GET_ALL_DISTRICT,
-  GET_SHOOL_BY_DISTRICT,
   GET_PROGRAM_BY_ID,
   GET_SHOOL_BY_DISTRICT_AND_SCHOOL_DEGREE,
   GET_GRADE_BY_SCHOOL_DEGREE,
   GET_ALL_POSITION,
-  POST_ACTIVITY
+  POST_ACTIVITY,
+  GET_VALID_STUDENT_QUANTITY
 } from "./baseUrl";
 
 export function getAllActivity() {
@@ -46,17 +46,25 @@ export function postActivity(activityObj) {
       "content-type": "application/json"
     },
     body: JSON.stringify({
-      school_id: activityObj.schoolNameSelected,
-      student_quantity: activityObj.studentQuantity,
-      grade_id: activityObj.gradeSlected,
-      creator: activityObj.teacherName,
-      position_id: activityObj.positionSelected,
-      program_id: activityObj.activityIdSelected,
-      date_registed: activityObj.dayJoinSlected,
-      school_degree_id: activityObj.schoolDegreeSlected,
-      class_id: activityObj.gradeSlected,
-      day_session_id: activityObj.sectionADaySlected,
-
+      
+        school_id: 500,
+        student_quantity: 20,
+        grade_id: 9,
+        creator: "sample string 4",
+        position_id: 2,
+        program_id: 1,
+        date_registed: "2018-04-15T13:06:35.8852006+07:00",
+        school_degree_id: 4,
+        class_id: 9,
+        day_session_id: 2
+      
     })
   }).then(res => res.json());
+}
+
+export function getValidStudentQuantity(program_id, sesstionADayId, time) {
+  return fetch(
+    `${BASE_URL +
+      GET_VALID_STUDENT_QUANTITY}/${program_id}/${sesstionADayId}/${time}`
+  ).then(res => res.json());
 }

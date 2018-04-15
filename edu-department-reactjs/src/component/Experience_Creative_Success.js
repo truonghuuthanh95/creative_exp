@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { PageHeader, Image, Button } from "react-bootstrap";
+import { PageHeader, Image, Button, Glyphicon } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 class Experience_Creative_Success extends Component {
+  
   render() {
     return (
       <div>
@@ -16,7 +17,9 @@ class Experience_Creative_Success extends Component {
         </PageHeader>;
         <p className="text-center">
           <Link to="/">
-            <Button bsStyle="primary">Về trang chủ </Button>
+            <Button bsSize="large" bsStyle="info">
+              <Glyphicon glyph="home" /> VỀ TRANG CHỦ
+            </Button>
           </Link>
         </p>
       </div>

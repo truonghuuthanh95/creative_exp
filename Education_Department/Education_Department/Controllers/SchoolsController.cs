@@ -16,7 +16,10 @@ namespace Education_Department.Controllers
     public class SchoolsController : ApiController
     {
         private Creative_Exp db = new Creative_Exp();
-
+        //public DateTime today()
+        //{
+        //    //return DateTime.Now();
+        //}
         // GET: api/Schools
         [Route("api/getSchoolByDistrictIdAndSchoolDegree/{districtId}/{schoolDegreeId}")]
         public IQueryable<School> GetSchoolsByDistrict(int districtId, int schoolDegreeId)
