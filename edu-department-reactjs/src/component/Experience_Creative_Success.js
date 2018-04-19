@@ -2,7 +2,17 @@ import React, { Component } from "react";
 import { PageHeader, Image, Button, Glyphicon } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 class Experience_Creative_Success extends Component {
-  
+
+  componentWillMount(){
+    const isRegistedSuccess = localStorage.getItem('activityKey');
+    debugger
+    if (isRegistedSuccess === undefined || isRegistedSuccess === null) {
+      this.props.history.push('/');
+    }
+  }
+  componentWillUnmount(){
+    localStorage.removeItem('activityKey')
+  }
   render() {
     return (
       <div>

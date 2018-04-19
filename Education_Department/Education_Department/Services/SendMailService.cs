@@ -8,7 +8,7 @@ namespace Education_Department.Services
 {
     public class SendMailService
     {
-        public bool sendMailToTeacher()
+        public bool sendMailToTeacher(string emailTo)
         {
             try { 
             //Configuring webMail class to send email  

@@ -22,11 +22,13 @@ import {
   postActivity,
   getValidStudentQuantity
 } from "../api/creative_exp_api";
-import moment from 'moment';
+import moment from "moment";
+import { withRouter } from "react-router-dom";
 class Experience_Creative extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: false,
       validStudentQuantity: "",
       listActivity: [],
       listDistrict: [],
@@ -150,7 +152,8 @@ class Experience_Creative extends Component {
       this.state.districtSlected
     );
     await this.setState({
-      listSchool
+      listSchool: listSchool,
+      schoolNameSelected: listSchool[0].id
     });
   }
   async _loadValidStudentQuantity(programId, sessionADayId, time) {
@@ -195,9 +198,13 @@ class Experience_Creative extends Component {
     }
   }
   async handelchangeDate(evt) {
-    const time = moment(evt).format('YYYY-MM-DD');
+    const time = moment(evt).format("YYYY-MM-DD");
     await this.setState({ dayJoinSlected: time });
-    await this._loadValidStudentQuantity(this.state.activityIdSelected, this.state.sectionADaySlected, this.state.dayJoinSlected)
+    await this._loadValidStudentQuantity(
+      this.state.activityIdSelected,
+      this.state.sectionADaySlected,
+      this.state.dayJoinSlected
+    );
   }
   //Notify error
   _getValidationStateDayJoined() {
@@ -212,21 +219,23 @@ class Experience_Creative extends Component {
       error.dayJoinError = undefined;
       (error.error = false), this.setState({ error: error });
     }
-    return null;
   }
   _getValidationStateStudentQuantity() {
-    const { studentQuantity, error } = this.state;
+    const { studentQuantity, error, validStudentQuantity } = this.state;
 
     if (studentQuantity === "") {
       let error = { ...this.state.error };
       error.studentQuantityError = "Vui lòng điền số lượng học sinh tham gia!";
+      this.setState({ error: error });
+    } else if (studentQuantity > validStudentQuantity) {
+      let error = { ...this.state.error };
+      error.studentQuantityError = "Số lượng học sinh tham gia không hợp lệ!";
       this.setState({ error: error });
     } else {
       let error = { ...this.state.error };
       error.studentQuantityError = undefined;
       this.setState({ error: error });
     }
-    return null;
   }
   //
   _getValidationStateTeacherName() {
@@ -241,7 +250,6 @@ class Experience_Creative extends Component {
       error.teacherNameError = undefined;
       this.setState({ error: error });
     }
-    return null;
   }
   //
   _getValidationStateEmail() {
@@ -256,7 +264,6 @@ class Experience_Creative extends Component {
       error.emailEnteredError = undefined;
       this.setState({ error: error });
     }
-    return null;
   }
   //
   _getValidationStatePhoneNumber() {
@@ -271,14 +278,12 @@ class Experience_Creative extends Component {
       error.phoneNumberError = undefined;
       this.setState({ error: error });
     }
-    return null;
   }
   //
   _getValidationStateActivityTitile() {
     const { activityTitle, error } = this.state;
 
     if (activityTitle === "") {
-      console.log("bbb");
       let error = { ...this.state.error };
       error.activityTitleError = "Vui lòng điền tên chủ đề!";
       this.setState({ error: error });
@@ -287,7 +292,14 @@ class Experience_Creative extends Component {
       error.activityTitleError = undefined;
       this.setState({ error: error });
     }
-    return null;
+  }
+  async validateData() {
+    await this._getValidationStateDayJoined();
+    await this._getValidationStateActivityTitile();
+    await this._getValidationStateStudentQuantity();
+    await this._getValidationStatePhoneNumber();
+    await this._getValidationStateTeacherName();
+    await this._getValidationStateEmail();
   }
   //send data to server
   async handleSubmitForm() {
@@ -301,23 +313,32 @@ class Experience_Creative extends Component {
       error
     } = this.state.error;
 
-    await this._getValidationStateDayJoined();
-    await this._getValidationStateActivityTitile();
-    await this._getValidationStateStudentQuantity();
-    await this._getValidationStatePhoneNumber();
-    await this._getValidationStateTeacherName();
-    await this._getValidationStateEmail();
-    // if (
-    //   studentQuantityError === undefined &&
-    //   teacherNameError === undefined &&
-    //   dayJoinError === undefined &&
-    //   emailEnteredError === undefined &&
-    //   phoneNumberError === undefined &&
-    //   activityTitleError === undefined &&
-    //   error === false
-    // ) {
-    //   const activityPost = await postActivity(this.state);
-    // }
+    // await this._getValidationStateDayJoined();
+    // await this._getValidationStateActivityTitile();
+    // await this._getValidationStateStudentQuantity();
+    // await this._getValidationStatePhoneNumber();
+    // await this._getValidationStateTeacherName();
+    // await this._getValidationStateEmail();
+    await this.validateData().then(async () => {
+      if (
+        studentQuantityError === undefined &&
+        teacherNameError === undefined &&
+        dayJoinError === undefined &&
+        emailEnteredError === undefined &&
+        phoneNumberError === undefined &&
+        activityTitleError === undefined &&
+        error === false
+      ) {
+        debugger;
+        this.setState({ isloading: true });
+        await postActivity(this.state).then(res => {
+          localStorage.setItem('activityKey', res.id);
+          this.setState({ isloading: false });
+          this.props.history.push("/dangkitrainghiem_thanhcong");
+        });
+      }
+    });
+    debugger;
   }
   render() {
     const {
@@ -329,9 +350,13 @@ class Experience_Creative extends Component {
       listSchool,
       listGrade,
       listPosition,
-      listSectionAday
+      listSectionAday,
+      loading
     } = this.state;
     console.log(this.state.validStudentQuantity);
+    if (loading === true) {
+      return <div className="loader" />;
+    }
     return (
       <Panel>
         <Panel.Heading>
@@ -574,7 +599,8 @@ class Experience_Creative extends Component {
                   {/* <Row> */}
                   {/* <Col md={6}> */}
                   <HelpBlock bsClass={"text-warning"}>
-                    Tối đa hoc sinh có thể đăng kí {this.state.validStudentQuantity}
+                    Tối đa hoc sinh có thể đăng kí{" "}
+                    {this.state.validStudentQuantity}
                   </HelpBlock>
                   {/* </Col> */}
                   {/* <Col md={6}> */}
@@ -725,7 +751,11 @@ class Experience_Creative extends Component {
           </form>
         </Panel.Body>
         <Panel.Footer>
-          <Button bsStyle="primary" block onClick={this.handleSubmitForm}>
+          <Button
+            bsStyle="primary"
+            block
+            onClick={() => this.handleSubmitForm()}
+          >
             Đăng kí
           </Button>
         </Panel.Footer>
@@ -734,4 +764,4 @@ class Experience_Creative extends Component {
   }
 }
 
-export default Experience_Creative;
+export default withRouter(Experience_Creative);

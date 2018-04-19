@@ -10,30 +10,32 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Education_Department.Models.DTO;
+using Education_Department.Repositories.Interfaces;
 using Education_Department.Services.Utils;
 namespace Education_Department.Controllers
 {
     public class ProgramsController : ApiController
     {
-        private Creative_Exp db = new Creative_Exp();
+        IProgramRepository _programRepository;
+
+        public ProgramsController(IProgramRepository programRepository)
+        {
+            _programRepository = programRepository;
+        }
+
 
         // GET: api/Programs
         public IQueryable<Program> GetPrograms()
         {
-            var listPrograms = db.Programs
-                .Where(x => x.isActive == true);
-            return listPrograms;
+            return _programRepository.GetAllProgram();
         }
 
         // GET: api/Programs/5
         [ResponseType(typeof(Program))]
-        public async Task<IHttpActionResult> GetProgram(int id)
+        public IHttpActionResult GetProgram(int id)
         {
-            Program program = await db.Programs
-                .Include("Day_Type_Enable.Day_Type_Enable_Section_A_Day.Session_A_Day")
-                .Include("Program_Required_District.District")
-                .Include("Program_Required_School_Degree.School_Degee")            
-                .FirstOrDefaultAsync(x => x.id == id);
+
+            Program program = _programRepository.GetProgramById(id);
             if (program == null)
             {
                 return NotFound();
@@ -41,6 +43,7 @@ namespace Education_Department.Controllers
 
             return Ok(program);
         }
+
         [HttpGet]
         [Route("api/studentQuantityValid/{programId}/{sesstionAdayId}/{time}")]
         public int StudentquantityValid(int programId, int sesstionAdayId, DateTime time)
@@ -49,9 +52,6 @@ namespace Education_Department.Controllers
             int validStudentNum = utils.checkValidQuantityStudent(programId, sesstionAdayId, time);
             return validStudentNum;
         }
-        private bool ProgramExists(int id)
-        {
-            return db.Programs.Count(e => e.id == id) > 0;
-        }
+        
     }
 }

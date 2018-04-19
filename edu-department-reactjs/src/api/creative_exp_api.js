@@ -7,7 +7,9 @@ import {
   GET_GRADE_BY_SCHOOL_DEGREE,
   GET_ALL_POSITION,
   POST_ACTIVITY,
-  GET_VALID_STUDENT_QUANTITY
+  GET_VALID_STUDENT_QUANTITY,
+  GET_CREATIVE_EXP_REGISTED_BY_ACTIVE_ID,
+  EXPORT_EXCEL_CREATIVE_EXP
 } from "./baseUrl";
 
 export function getAllActivity() {
@@ -46,18 +48,15 @@ export function postActivity(activityObj) {
       "content-type": "application/json"
     },
     body: JSON.stringify({
-      
-        school_id: 500,
-        student_quantity: 20,
-        grade_id: 9,
-        creator: "sample string 4",
-        position_id: 2,
-        program_id: 1,
-        date_registed: "2018-04-15T13:06:35.8852006+07:00",
-        school_degree_id: 4,
-        class_id: 9,
-        day_session_id: 2
-      
+      school_id: activityObj.schoolNameSelected,
+      student_quantity: activityObj.studentQuantity,
+      creator: activityObj.teacherName,
+      position_id: activityObj.positionSelected,
+      program_id: activityObj.activityIdSelected,
+      date_registed: activityObj.dayJoinSlected,
+      school_degree_id: activityObj.schoolDegreeSlected,
+      class_id: activityObj.gradeSlected,
+      day_session_id: activityObj.sectionADaySlected
     })
   }).then(res => res.json());
 }
@@ -67,4 +66,14 @@ export function getValidStudentQuantity(program_id, sesstionADayId, time) {
     `${BASE_URL +
       GET_VALID_STUDENT_QUANTITY}/${program_id}/${sesstionADayId}/${time}`
   ).then(res => res.json());
+}
+
+export function getListCreativeExpRegistedByActiveId(programId) {
+  return fetch(`${BASE_URL + GET_CREATIVE_EXP_REGISTED_BY_ACTIVE_ID}/${programId}`).then(
+    res => res.json()
+  );
+}
+
+export function exportExcelCreaticeExp(programId){
+  return fetch(`${BASE_URL + EXPORT_EXCEL_CREATIVE_EXP}/${programId}`);
 }

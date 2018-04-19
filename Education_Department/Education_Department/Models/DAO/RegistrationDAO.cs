@@ -13,8 +13,6 @@ namespace Education_Department.Models.DAO
 
         public int student_quantity { get; set; }
 
-        public int grade_id { get; set; }
-
         public string creator { get; set; }
 
         public int position_id { get; set; }

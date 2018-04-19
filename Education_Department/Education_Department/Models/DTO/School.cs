@@ -43,8 +43,8 @@ namespace Education_Department.Models.DTO
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Registration_Creative_Exp> Registration_Creative_Exp { get; set; }
 
-        public virtual School_Type School_Type1 { get; set; }
-
         public virtual School_Degee School_Degee { get; set; }
+
+        public virtual School_Type School_Type1 { get; set; }
     }
 }

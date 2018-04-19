@@ -14,8 +14,6 @@ namespace Education_Department.Models.DTO
 
         public int? student_quantity { get; set; }
 
-        public int? grade_id { get; set; }
-
         [StringLength(50)]
         public string creator { get; set; }
 

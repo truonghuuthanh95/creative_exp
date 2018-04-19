@@ -33,7 +33,37 @@ namespace Education_Department.Services.Utils
                     studentJoinedHaftDaynumb += Convert.ToInt16(registration.student_quantity);
                 }
             }
-            
+            else
+            {
+                int studentJoinedEvenningNumb = 0;
+                int studentJoinedMorningNumb = 0;
+                List<Registration_Creative_Exp> studentJoinedMorning = db.Registration_Creative_Exp
+                .Where(x => x.date_registed == time)
+                .Where(x => x.day_session_id == 1).ToList();
+                
+                List<Registration_Creative_Exp> studentJoinedEvenning = db.Registration_Creative_Exp
+                .Where(x => x.date_registed == time)
+                .Where(x => x.day_session_id == 2).ToList();
+
+                foreach (Registration_Creative_Exp registration in studentJoinedEvenning)
+                {
+                    studentJoinedEvenningNumb += Convert.ToInt16(registration.student_quantity);
+                }
+                foreach (Registration_Creative_Exp registration in studentJoinedMorning)
+                {
+                    studentJoinedMorningNumb += Convert.ToInt16(registration.student_quantity);
+                }
+
+                if (studentJoinedMorningNumb >= studentJoinedEvenningNumb)
+                {
+                    studentJoinedHaftDaynumb = studentJoinedMorningNumb;
+                }
+                else
+                {
+                    studentJoinedHaftDaynumb = studentJoinedEvenningNumb;
+                }
+                
+            }
             
             return Convert.ToInt16(maxStudent) - (studentJoinedAllDayNumb + studentJoinedHaftDaynumb);
         }

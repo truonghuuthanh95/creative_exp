@@ -10,28 +10,27 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Education_Department.Models.DTO;
+using Education_Department.Repositories;
 
 namespace Education_Department.Controllers
 {
     public class SchoolsController : ApiController
     {
-        private Creative_Exp db = new Creative_Exp();
-        //public DateTime today()
-        //{
-        //    //return DateTime.Now();
-        //}
+
+        ISchoolRepository _schoolRepository;
+
+        public SchoolsController(ISchoolRepository schoolRepository)
+        {
+            _schoolRepository = schoolRepository;
+        }
+
         // GET: api/Schools
         [Route("api/getSchoolByDistrictIdAndSchoolDegree/{districtId}/{schoolDegreeId}")]
         public IQueryable<School> GetSchoolsByDistrict(int districtId, int schoolDegreeId)
         {
-            return db.Schools
-                .Where(x => x.district_id == districtId)
-                .Where(x => x.school_degree_id == schoolDegreeId);
+            return _schoolRepository.GetSchoolByDistrictAndSchoolDegree(districtId, schoolDegreeId);
         }     
-        private bool SchoolExists(int id)
-        {
-            return db.Schools.Count(e => e.id == id) > 0;
-        }
+       
 
     }
 }

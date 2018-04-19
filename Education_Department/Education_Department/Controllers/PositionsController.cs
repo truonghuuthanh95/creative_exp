@@ -10,110 +10,23 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Education_Department.Models.DTO;
+using Education_Department.Repositories.Interfaces;
 
 namespace Education_Department.Controllers
 {
     public class PositionsController : ApiController
     {
-        private Creative_Exp db = new Creative_Exp();
+        IPositionRepository _positionRepository;
 
-        // GET: api/Positions
+        public PositionsController(IPositionRepository positionRepository)
+        {
+            _positionRepository = positionRepository;
+        }
+
         public IQueryable<Position> GetPositions()
         {
-            return db.Positions;
+            return _positionRepository.GetAllPositions();
         }
 
-        // GET: api/Positions/5
-        [ResponseType(typeof(Position))]
-        public async Task<IHttpActionResult> GetPosition(int id)
-        {
-            Position position = await db.Positions.FindAsync(id);
-            if (position == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(position);
-        }
-
-        // PUT: api/Positions/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutPosition(int id, Position position)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != position.id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(position).State = EntityState.Modified;
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PositionExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // POST: api/Positions
-        [ResponseType(typeof(Position))]
-        public async Task<IHttpActionResult> PostPosition(Position position)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.Positions.Add(position);
-            await db.SaveChangesAsync();
-
-            return CreatedAtRoute("DefaultApi", new { id = position.id }, position);
-        }
-
-        // DELETE: api/Positions/5
-        [ResponseType(typeof(Position))]
-        public async Task<IHttpActionResult> DeletePosition(int id)
-        {
-            Position position = await db.Positions.FindAsync(id);
-            if (position == null)
-            {
-                return NotFound();
-            }
-
-            db.Positions.Remove(position);
-            await db.SaveChangesAsync();
-
-            return Ok(position);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private bool PositionExists(int id)
-        {
-            return db.Positions.Count(e => e.id == id) > 0;
-        }
     }
 }

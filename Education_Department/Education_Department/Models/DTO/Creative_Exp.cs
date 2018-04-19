@@ -8,7 +8,7 @@ namespace Education_Department.Models.DTO
     public partial class Creative_Exp : DbContext
     {
         public Creative_Exp()
-            : base("name=Creative_Exp_V3")
+            : base("name=Creative_Exp")
         {
             this.Configuration.LazyLoadingEnabled = false;
         }
@@ -104,12 +104,12 @@ namespace Education_Department.Models.DTO
             modelBuilder.Entity<School_Degee>()
                 .HasMany(e => e.Schools)
                 .WithOptional(e => e.School_Degee)
-                .HasForeignKey(e => e.school_type);
+                .HasForeignKey(e => e.school_degree_id);
 
             modelBuilder.Entity<School_Type>()
                 .HasMany(e => e.Schools)
                 .WithOptional(e => e.School_Type1)
-                .HasForeignKey(e => e.school_degree_id);
+                .HasForeignKey(e => e.school_type);
 
             modelBuilder.Entity<Session_A_Day>()
                 .HasMany(e => e.Day_Type_Enable_Section_A_Day)
