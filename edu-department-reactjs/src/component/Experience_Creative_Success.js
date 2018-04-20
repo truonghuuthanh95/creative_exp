@@ -10,9 +10,6 @@ class Experience_Creative_Success extends Component {
       this.props.history.push('/');
     }
   }
-  componentWillUnmount(){
-    localStorage.removeItem('activityKey')
-  }
   render() {
     return (
       <div>

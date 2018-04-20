@@ -11,6 +11,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using Education_Department.Models.DTO;
 using Education_Department.Repositories;
+using Education_Department.Services;
 
 namespace Education_Department.Controllers
 {
@@ -31,6 +32,14 @@ namespace Education_Department.Controllers
             return _schoolRepository.GetSchoolByDistrictAndSchoolDegree(districtId, schoolDegreeId);
         }     
        
+        [HttpGet]
+        [Route("api/sendmail")]
+        public void sendMail()
+        {
+            SendMailService sendMailService = new SendMailService();
+            Boolean a = sendMailService.sendMailToTeacher();
+            Console.WriteLine(a);
+        }
 
     }
 }

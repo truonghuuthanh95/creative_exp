@@ -80,48 +80,7 @@ namespace Education_Department.Controllers
             result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
             result.Content.Headers.ContentDisposition.FileName = fileName;
 
-            return result;
-
-
-
-           
-            //ExcelPackage pck = new ExcelPackage();
-            //ExcelWorksheet ws = pck.Workbook.Worksheets.Add("trainghiemsangtao");
-
-            //ws.Cells["A1"].Value = "Tên chủ đề: " + program.name;
-            //ws.Cells["A4"].Value = "STT";
-            //ws.Cells["B4"].Value = "Tên Trường";
-            //ws.Cells["C4"].Value = "Ngày Tham Gia";
-            //ws.Cells["D4"].Value = "Buổi";
-            //ws.Cells["E4"].Value = "Số Lượng";
-            //ws.Cells["F4"].Value = "Tên Người Đăng Kí";
-            //ws.Cells["G4"].Value = "Cấp Trường";
-            //ws.Cells["H4"].Value = "Ngày Đăng Kí";
-
-            //int rowStart = 5;
-            //int index = 1;
-            //foreach (var item in listExp)
-            //{
-            //    ws.Cells[string.Format("A{0}", rowStart)].Value = index;
-            //    ws.Cells[string.Format("B{0}", rowStart)].Value = item.School.name;
-            //    ws.Cells[string.Format("C{0}", rowStart)].Value = item.date_registed;
-            //    ws.Cells[string.Format("D{0}", rowStart)].Value = item.Session_A_Day.name;
-            //    ws.Cells[string.Format("E{0}", rowStart)].Value = item.student_quantity;
-            //    ws.Cells[string.Format("F{0}", rowStart)].Value = item.creator;
-            //    ws.Cells[string.Format("G{0}", rowStart)].Value = item.School.School_Degee.name;
-            //    ws.Cells[string.Format("H{0}", rowStart)].Value = item.created_at;
-            //    //rowStart++;
-            //    //index++;
-            //}
-            //ws.Cells["A:AZ"].AutoFitColumns();
-            //var response = Request.CreateResponse();
-            //response.Content = 
-            //    new StringContent("application / vnd.openxmlformats - officedocument.spreadsheetml.sheet", 
-            //    System.Text.Encoding.Unicode); 
-            
-            //response.Headers.Add("content-disposition", "attackment: filename=" + "trainghiemsangtao.xlsx");
-            //response.Content = new StreamContent(pck.Stream);
-            
+            return result;   
         }
 
     }

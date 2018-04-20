@@ -8,7 +8,7 @@ namespace Education_Department.Services
 {
     public class SendMailService
     {
-        public bool sendMailToTeacher(string emailTo)
+        public bool sendMailToTeacher()
         {
             try { 
             //Configuring webMail class to send email  
@@ -24,11 +24,11 @@ namespace Education_Department.Services
             WebMail.Password = "Thanh62550144";
 
             //Sender email address.  
-            WebMail.From = "SenderGamilId@gmail.com";
+            WebMail.From = "truonghuuthanh95@gmail.com";
 
-            //Send email  
-            //WebMail.Send(to: obj.ToEmail, subject: obj.EmailSubject, body: obj.EMailBody, cc: obj.EmailCC, bcc: obj.EmailBCC, isBodyHtml: true);
-            return true;
+                //Send email  
+                WebMail.Send(to: "thanhthse61493", subject: "truonghuuthanh", body: "truonghuuthanh",isBodyHtml: true);
+                return true;
         }  
       catch (Exception)  
       {

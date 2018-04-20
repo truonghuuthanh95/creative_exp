@@ -353,7 +353,6 @@ class Experience_Creative extends Component {
       listSectionAday,
       loading
     } = this.state;
-    console.log(this.state.validStudentQuantity);
     if (loading === true) {
       return <div className="loader" />;
     }
@@ -754,7 +753,7 @@ class Experience_Creative extends Component {
           <Button
             bsStyle="primary"
             block
-            onClick={() => this.handleSubmitForm()}
+            onClick={ this.handleSubmitForm}
           >
             Đăng kí
           </Button>

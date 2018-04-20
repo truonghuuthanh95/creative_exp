@@ -1,5 +1,5 @@
-// export const BASE_URL = 'http://localhost:58486/api/';
-export const BASE_URL = 'http://api.trainghiemsangtao.hcm.edu.vn/api/';
+export const BASE_URL = 'http://localhost:58486/api/';
+// export const BASE_URL = 'http://api.trainghiemsangtao.hcm.edu.vn/api/';
 export const GET_ALL_PROGRAMS = 'programs';
 export const GET_PROGRAM_BY_ID = 'programs';
 export const GET_ALL_DISTRICT = 'districts';
