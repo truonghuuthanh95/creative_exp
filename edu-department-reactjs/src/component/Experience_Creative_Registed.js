@@ -31,13 +31,7 @@ class Experience_Creative_Registed extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleClickExportCreativeExp = this.handleClickExportCreativeExp.bind(this);
   }
-  componentWillMount(){
-    const isRegistedSuccess = localStorage.getItem('activityKey');
-    debugger
-    if (isRegistedSuccess === undefined || isRegistedSuccess == '') {
-      this.props.history.push('/');
-    }
-  }
+  
   async componentDidMount() {
     await getAllActivity().then(res =>
       this.setState({ listActivityExp: res, activityExpSelected: res[0].id })

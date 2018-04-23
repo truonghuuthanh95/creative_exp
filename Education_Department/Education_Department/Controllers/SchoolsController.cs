@@ -37,7 +37,7 @@ namespace Education_Department.Controllers
         public void sendMail()
         {
             SendMailService sendMailService = new SendMailService();
-            Boolean a = sendMailService.sendMailToTeacher();
+            Boolean a = sendMailService.SendMailToTeacher();
             Console.WriteLine(a);
         }
 
